@@ -1,9 +1,7 @@
-import NavBar from "@/components/common/navbar/NavBar";
-
 export default function Home() {
 	return (
-		<>
-			<NavBar />
-		</>
+		<div className=" h-screen">
+			<h1 className=" text-6xl">Home Page</h1>
+		</div>
 	);
 }
