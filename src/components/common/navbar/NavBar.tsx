@@ -24,14 +24,14 @@ const NavBar = () => {
 		{ name: "Contact Us", link: "/contact-us" },
 	];
 	return (
-		<nav className="fixed left-0 top-0  min-h-16 lg:h-24 backdrop-blur flex items-center justify-between px-16">
-			<h1 className="text-4xl">SREE Creative</h1>
+		<nav className=" absolute left-0 top-0 z-10 w-full min-h-16 lg:h-24 flex items-center justify-between px-16">
+			<h1 className="text-4xl">SREE</h1>
 			<div className="h-full flex gap-x-4 items-center">
 				{links &&
 					links.map((link, idx) => (
 						<div
 							key={idx}
-							className="h-full flex items-center min-w-[90px] hover:text-[#4089ff] font-medium hover:font-normal"
+							className="h-full flex items-center min-w-[90px] hover:text-[#4089ff] font-medium hover:font-normal transition duration-500"
 							onMouseEnter={() => setCoverHover(link.link)}
 							onMouseLeave={() => setCoverHover(null)}>
 							<Link

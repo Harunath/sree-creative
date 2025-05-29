@@ -6,7 +6,7 @@ function Providers({ children }: { children: ReactNode }) {
 		<div className="min-h-screen bg-neutral-900 text-white">
 			<NavBar />
 
-			<div className="pt-24">{children}</div>
+			<div className="">{children}</div>
 		</div>
 	);
 }
