@@ -7,14 +7,14 @@ export default function ContactBanner() {
 		<section
 			className="relative w-full h-56 md:h-96 flex items-center justify-center"
 			style={{
-				backgroundImage: `url('https://res.cloudinary.com/dip2khkyo/image/upload/v1739210096/Contact-us-banner_dhlcsf.jpg')`,
+				backgroundImage: `url('https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg')`,
 				backgroundSize: "cover",
 				backgroundPosition: "center",
 			}}>
 			{/* Centered Text */}
-			{/* <h1 className="relative text-white text-4xl md:text-6xl font-extrabold drop-shadow-lg">
+			<h1 className="relative text-white text-4xl md:text-6xl font-extrabold drop-shadow-lg">
 				Contact Us
-			</h1> */}
+			</h1>
 		</section>
 	);
 }
