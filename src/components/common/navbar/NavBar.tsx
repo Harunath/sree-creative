@@ -22,7 +22,7 @@ const links = [
 // Mobile animation
 const mobileMenuVariants = {
 	hidden: { x: "100%" },
-	visible: { x: 0 },
+	visible: { x: "30%" }, // Not full screen
 	exit: { x: "100%" },
 };
 
@@ -37,7 +37,7 @@ const NavBar = () => {
 	}, [pathname]);
 
 	return (
-		<nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-lg">
+		<nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md">
 			<div className="max-w-7xl mx-auto px-4 lg:px-16 h-16 lg:h-24 flex items-center justify-between">
 				<h1 className="text-2xl lg:text-4xl font-bold tracking-wide">SREE</h1>
 
@@ -84,36 +84,48 @@ const NavBar = () => {
 			{/* Mobile Menu Overlay */}
 			<AnimatePresence>
 				{menuOpen && (
-					<motion.div
-						className="fixed inset-0 bg-black text-white flex flex-col px-8 pt-24 space-y-8 lg:hidden z-50"
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						variants={mobileMenuVariants}
-						transition={{ type: "spring", stiffness: 300, damping: 30 }}>
-						{/* Close Button */}
-						<button
+					<>
+						{/* Dim background */}
+						<motion.div
+							className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
 							onClick={() => setMenuOpen(false)}
-							className="absolute top-6 right-6 text-orange-500 hover:rotate-90 transition-transform duration-300"
-							aria-label="Close Menu">
-							<FaTimes size={28} />
-						</button>
+						/>
 
-						{/* Mobile Links */}
-						{links.map((link) => (
-							<Link
-								key={link.link}
-								href={link.link}
+						{/* Sidebar Menu */}
+						<motion.div
+							className="fixed top-0 right-0 h-full w-4/5 max-w-xs bg-black text-white flex flex-col px-6 pt-24 space-y-6 z-50 shadow-xl"
+							initial="hidden"
+							animate="visible"
+							exit="exit"
+							variants={mobileMenuVariants}
+							transition={{ type: "spring", stiffness: 300, damping: 30 }}>
+							{/* Close Button */}
+							<button
 								onClick={() => setMenuOpen(false)}
-								className={`text-lg font-medium transition-colors duration-300 ${
-									selected === link.link
-										? "text-orange-500"
-										: "hover:text-orange-400"
-								}`}>
-								{link.name}
-							</Link>
-						))}
-					</motion.div>
+								className="absolute top-6 right-6 text-orange-500 hover:rotate-90 transition-transform duration-300"
+								aria-label="Close Menu">
+								<FaTimes size={26} />
+							</button>
+
+							{/* Mobile Links */}
+							{links.map((link) => (
+								<Link
+									key={link.link}
+									href={link.link}
+									onClick={() => setMenuOpen(false)}
+									className={`text-base font-medium transition-colors duration-300 ${
+										selected === link.link
+											? "text-orange-500"
+											: "hover:text-orange-400"
+									}`}>
+									{link.name}
+								</Link>
+							))}
+						</motion.div>
+					</>
 				)}
 			</AnimatePresence>
 		</nav>
