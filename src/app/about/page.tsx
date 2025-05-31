@@ -1,7 +1,11 @@
 import React from "react";
-
+import AboutHome from "@/components/about/AboutHome";
 function page() {
-	return <div>About page</div>;
+	return <>
+
+
+	<AboutHome />
+</>;
 }
 
 export default page;

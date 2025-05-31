@@ -31,20 +31,20 @@ const NavBar = () => {
 					links.map((link, idx) => (
 						<div
 							key={idx}
-							className="h-full flex items-center min-w-[90px] hover:text-[#4089ff] font-medium hover:font-normal transition duration-500"
+							className="h-full flex items-center min-w-[90px] hover:text-orange-500 font-medium hover:font-normal transition duration-500"
 							onMouseEnter={() => setCoverHover(link.link)}
 							onMouseLeave={() => setCoverHover(null)}>
 							<Link
 								href={link.link}
 								className={`${
-									selected === link.link ? "text-[#4089ff] font-normal" : ""
+									selected === link.link ? "text-orange-500 font-normal" : ""
 								} relative z-10 w-full`}>
 								{(currentHover === link.link ||
 									(!currentHover && selected === link.link)) && (
 									<motion.div
 										layoutId="nav-highlighting"
 										transition={{ duration: currentHover ? 0.3 : 0.5 }}
-										className="absolute inset-0 rounded border-b border-b-[#4089ff] z-0"
+										className="absolute inset-0 rounded border-b border-b-orange-500 z-0"
 									/>
 								)}
 								<p className="text-center py-1 px-2 min-w-24">{link.name}</p>
