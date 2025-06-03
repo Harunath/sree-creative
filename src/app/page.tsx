@@ -5,7 +5,7 @@ import OurServices from "@/components/home/OurServices";
 
 export default function Home() {
 	return (
-		<div className=" min-h-screen pt-40">
+		<div className=" min-h-screen">
 			<Hero />
 			<OurServices />
 			<HorizontalScroll content="Branding_Digital Marketing_Ad Films" />
