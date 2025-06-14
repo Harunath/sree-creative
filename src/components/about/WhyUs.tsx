@@ -11,14 +11,15 @@ interface SkillBarProps {
 }
 
 const skillBarVariants = {
-	hidden: { opacity: 0, x: -50 },
+	hidden: { opacity: 0, x: -30 },
 	visible: (i = 0) => ({
 		opacity: 1,
 		x: 0,
 		transition: {
-			delay: i * 0.2,
+			delay: i * 0.1, // Reduced delay
 			type: "spring",
-			stiffness: 100,
+			stiffness: 120,
+			damping: 12,
 		},
 	}),
 };
@@ -28,9 +29,9 @@ const barFillVariants = {
 	visible: ([i = 0, percentage = 100]: [number, number]) => ({
 		width: `${percentage}%`,
 		transition: {
-			duration: 1.5,
+			duration: 0.8, // Faster animation
 			ease: "easeInOut",
-			delay: i * 0.2 + 0.3,
+			delay: i * 0.1 + 0.1, // Reduced delay
 		},
 	}),
 };
@@ -61,12 +62,12 @@ const SkillBar = ({ title, percentage, index = 0 }: SkillBarProps) => (
 );
 
 const containerVariants = {
-	hidden: { opacity: 0, y: 30 },
+	hidden: { opacity: 0.5, y: 20 },
 	visible: {
 		opacity: 1,
 		y: 0,
 		transition: {
-			staggerChildren: 0.15,
+			staggerChildren: 0.1, // Reduced stagger
 			when: "beforeChildren",
 		},
 	},
@@ -79,15 +80,15 @@ export default function WhyUs() {
 			variants={containerVariants}
 			initial="hidden"
 			whileInView="visible"
-			viewport={{ once: true, amount: 0.3 }}>
+			viewport={{ once: true }}>
 			<motion.div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 				{/* Image Section */}
 				<motion.div
 					className="rounded-lg overflow-hidden shadow-lg"
-					initial={{ opacity: 0, x: -50 }}
+					initial={{ opacity: 0, x: -30 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true }}
-					transition={{ duration: 0.7, delay: 0.2 }}>
+					transition={{ duration: 0.5, delay: 0.1 }}>
 					<Image
 						src="https://res.cloudinary.com/dip2khkyo/image/upload/v1739210128/contact-us-img_xfcru4.webp"
 						width={600}
@@ -100,10 +101,10 @@ export default function WhyUs() {
 
 				{/* Text Section */}
 				<motion.div
-					initial={{ opacity: 0, x: 50 }}
+					initial={{ opacity: 0, x: 30 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true }}
-					transition={{ duration: 0.7, delay: 0.4 }}>
+					transition={{ duration: 0.5, delay: 0.2 }}>
 					<h4 className="text-sm text-gray-400 tracking-widest uppercase mb-2">
 						Why Choose Us
 					</h4>
