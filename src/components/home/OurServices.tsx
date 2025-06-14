@@ -35,24 +35,28 @@ export default function OurServices() {
 					</button>
 				</div>
 
-				<div className="flex gap-6 md:flex-wrap md:justify-between">
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
 					{services.map((service, index) => (
 						<motion.div
 							key={index}
-							initial={{ y: 50, opacity: 0 }}
-							whileInView={{ y: index + 1 * 50, opacity: 1 }}
-							transition={{ duration: 0.6, delay: index * 0.2 }}
+							initial={{ y: 0, opacity: 0 }}
+							whileInView={{ y: index * 50, opacity: 1 }}
+							transition={{ duration: 1, delay: index * 0.2 }}
+							whileHover={{
+								filter: "grayscale(90%)",
+								transition: { duration: 0.3 },
+							}}
 							viewport={{ once: true }}
-							className="min-w-[300px] w-[300px] md:w-[32%] rounded-lg overflow-hidden relative group cursor-pointer">
+							className=" justify-self-center lg:flex-1 bg-yellow-300 min-w-[300px] w-[60%] lg:w-auto overflow-hidden relative group cursor-pointer">
 							<Image
 								src={service.image}
 								alt={service.title}
 								width={400}
 								height={400}
-								className="object-cover w-full min-h-[400px] transition-transform duration-300 group-hover:scale-105"
+								className="object-cover w-full h-auto min-h-[400px] transition-transform duration-300 group-hover:scale-105"
 							/>
 							<div className="absolute inset-0  flex items-center justify-center">
-								<h3 className="text-white text-xl font-bold">
+								<h3 className="text-white text-3xl font-bold">
 									{service.title}
 								</h3>
 							</div>
@@ -63,4 +67,3 @@ export default function OurServices() {
 		</section>
 	);
 }
-

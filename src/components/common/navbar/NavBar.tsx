@@ -12,9 +12,9 @@ const links = [
 	{ name: "About Us", link: "/about" },
 	{ name: "Services", link: "/services" },
 	{ name: "Our Works", link: "/works" },
-	{ name: "Clients", link: "/clients" },
+	// { name: "Clients", link: "/clients" },
 	{ name: "Blog", link: "/blog" },
-	{ name: "Plan Yours", link: "/plan-your-projects" },
+	// { name: "Plan Yours", link: "/plan-your-projects" },
 	{ name: "Careers", link: "/careers" },
 	{ name: "Contact Us", link: "/contact-us" },
 ];
@@ -32,12 +32,24 @@ const NavBar = () => {
 	const [hovered, setHovered] = useState<null | string>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
 
+	const [scrolled, setScrolled] = useState(false);
+
+	useEffect(() => {
+		setSelected(pathname);
+		const handleScroll = () => setScrolled(window.scrollY > 10);
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [pathname]);
+
 	useEffect(() => {
 		setSelected(pathname);
 	}, [pathname]);
 
 	return (
-		<nav className="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-md">
+		<nav
+			className={`fixed top-0 left-0 w-full z-50 text-white ${
+				scrolled ? "backdrop-blur-sm shadow-md " : "bg-transparent"
+			}`}>
 			<div className="max-w-7xl mx-auto px-4 lg:px-16 h-16 lg:h-24 flex items-center justify-between">
 				<h1 className="text-2xl lg:text-4xl font-bold tracking-wide">SREE</h1>
 

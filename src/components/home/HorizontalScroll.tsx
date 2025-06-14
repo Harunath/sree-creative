@@ -25,7 +25,7 @@ function HorizontalScroll({
 	}, []);
 
 	return (
-		<div className="w-full overflow-hidden bg-black pt-4">
+		<div className="w-full overflow-hidden bg-black pt-16">
 			<motion.div
 				ref={contentRef}
 				className="flex whitespace-nowrap text-8xl font-bold text-white"

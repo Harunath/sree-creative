@@ -1,6 +1,6 @@
 "use client";
 
-import { useMotionValue, animate, useInView } from "framer-motion";
+import { motion, useMotionValue, animate, useInView } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 const AnimateNumbers = ({
@@ -15,7 +15,7 @@ const AnimateNumbers = ({
 	const [displayNumber, setDisplayNumber] = useState(0);
 	const motionValue = useMotionValue(0);
 	const divRef = useRef<HTMLDivElement>(null);
-	const isInView = useInView(divRef, { once: false, amount: 0.6 }); // ← run every time it's at least 60% in view
+	const isInView = useInView(divRef, { once: true, amount: 0.6 }); // ← run every time it's at least 60% in view
 
 	useEffect(() => {
 		if (isInView) {
@@ -36,13 +36,28 @@ const AnimateNumbers = ({
 	}, [isInView, n, motionValue]);
 
 	return (
-		<div ref={divRef} className="text-9xl font-bold">
-			<p className="text-7xl">
+		<motion.div
+			ref={divRef}
+			initial={
+				{
+					// rotateX: 45,
+					// rotateY: -45,
+					// rotateZ: -45,
+				}
+			}
+			whileHover={{
+				// rotateX: 0,
+				// rotateZ: 0,
+
+				transition: { duration: 2 },
+			}}
+			className="text-9xl font-bold">
+			<p className="text-7xl text-center">
 				{displayNumber}
 				{sign}
 			</p>
-			<p className="text-3xl">{content}</p>
-		</div>
+			<p className="text-3xl text-center">{content}</p>
+		</motion.div>
 	);
 };
 

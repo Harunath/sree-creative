@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 
 function Providers({ children }: { children: ReactNode }) {
 	return (
-		<div className="min-h-screen bg-neutral-900 text-white">
+		<div className="min-h-screen bg-black text-white">
 			<NavBar />
 
 			<div className="">{children}</div>
