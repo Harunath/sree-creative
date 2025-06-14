@@ -39,7 +39,7 @@ export default function Faq() {
 					</div>
 					<h3 className="text-2xl font-bold">Still Have Questions?</h3>
 					<p className="text-zinc-400 mt-2">
-						We&apos;re here to help. Whether it&apos;s printing, design, or delivery —
+						We&apos;re here to help. Whether it&apos;s printing, design, or delivery -
 						let&apos;s make your vision a reality.
 					</p>
 					<button className="mt-4 px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold">
