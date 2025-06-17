@@ -16,7 +16,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
 				className="w-full h-48 object-cover"
 			/>
 			<div className="p-5">
-				<h2 className="text-2xl font-semibold mb-2">{post.title}</h2>
+				<h2 className="text-2xl text-black font-semibold mb-2">{post.title}</h2>
 				<p className="text-gray-600 mb-4">{post.excerpt}</p>
 
 				<div className="text-sm text-gray-500 mb-4 flex items-center gap-2">
