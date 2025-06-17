@@ -66,7 +66,7 @@ export default function ServicesMain() {
 				</h3>
 				<div className="flex items-center justify-between mb-8 flex-wrap gap-4">
 					<h2 className="text-4xl font-bold">Our Services</h2>
-					<Link href="/our-works">
+					<Link href="/works">
 						<button className="bg-gray-800 text-sm px-5 py-2 rounded-full hover:bg-gray-700">
 							View All
 						</button>
