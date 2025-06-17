@@ -1,8 +1,8 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
+import clsx from "clsx";
 
 const works = [
 	{
@@ -78,34 +78,44 @@ const works = [
 	},
 ];
 
+const allCategories = ["All", ...new Set(works.map((work) => work.category))];
+
 export default function OurWorksSection() {
-	const searchParams = useSearchParams();
-	const category = searchParams.get("category");
+	const [selectedCategory, setSelectedCategory] = useState("All");
 
 	const filteredWorks = useMemo(() => {
-		if (!category) return works;
-		return works.filter((work) => work.category === category);
-	}, [category]);
+		if (selectedCategory === "All") return works;
+		return works.filter((work) => work.category === selectedCategory);
+	}, [selectedCategory]);
 
 	return (
-		<div className="p-6 text-white bg-black min-h-screen">
-			<h1 className="text-4xl font-bold mb-4">Our Works</h1>
+		<div className="p-6 pt-16 min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white">
+			<h1 className="text-4xl font-bold mb-8 text-center">Our Works</h1>
 
-			{category && (
-				<p className="text-lg mb-6">
-					Showing works for:{" "}
-					<strong className="text-orange-400">{category}</strong>
-				</p>
-			)}
+			{/* Filter Tabs */}
+			<div className="flex flex-wrap justify-center gap-4 mb-10">
+				{allCategories.map((cat) => (
+					<button
+						key={cat}
+						onClick={() => setSelectedCategory(cat)}
+						className={clsx(
+							"px-4 py-2 rounded-full border transition-all text-sm sm:text-base",
+							selectedCategory === cat
+								? "bg-orange-500 text-white border-orange-500 shadow-lg"
+								: "border-gray-500 text-gray-300 hover:bg-gray-800 hover:border-gray-300"
+						)}>
+						{cat}
+					</button>
+				))}
+			</div>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			{/* Grid of Works */}
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 				{filteredWorks.map((work, index) => (
 					<div
 						key={index}
-						className="bg-white text-black rounded-xl overflow-hidden shadow-lg p-4">
-						<h3 className="font-bold text-lg mb-2">{work.title}</h3>
-						<p className="text-sm text-gray-600 mb-4">{work.category}</p>
-						<div className="grid grid-cols-2 gap-2">
+						className="bg-white text-black rounded-xl overflow-hidden shadow-xl hover:shadow-orange-400 transition-shadow duration-300">
+						<div className="grid grid-cols-2 gap-2 p-4">
 							{work.images.map((img, i) => (
 								<Image
 									key={i}
@@ -117,11 +127,15 @@ export default function OurWorksSection() {
 								/>
 							))}
 						</div>
+						<div className="p-4 border-t">
+							<h3 className="font-bold text-lg">{work.title}</h3>
+							<p className="text-sm text-gray-600">{work.category}</p>
+						</div>
 					</div>
 				))}
 
 				{filteredWorks.length === 0 && (
-					<p className="text-gray-400">
+					<p className="text-center text-gray-400 col-span-full">
 						No works found for the selected category.
 					</p>
 				)}
