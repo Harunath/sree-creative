@@ -1,76 +1,111 @@
 "use client";
 
-import {
-	FiFeather,
-	FiGlobe,
-	FiSmartphone,
-	FiImage,
-	FiLayout,
-	FiVideo,
-} from "react-icons/fi";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
-const services = [
+const printServices = [
 	{
-		title: "Branding & Identity Design",
-		description:
-			"We build impactful brand identities that leave a lasting impression — from logos to complete brand systems.",
-		icon: <FiFeather size={28} className="text-orange-500" />,
+		title: "Brochures",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
 	},
 	{
-		title: "Website Design & Development",
-		description:
-			"Modern, responsive websites that blend aesthetics with performance to help your business grow online.",
-		icon: <FiGlobe size={28} className="text-orange-500" />,
+		title: "Business Cards",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
 	},
 	{
-		title: "Social Media Design",
-		description:
-			"Consistent, visually engaging designs tailored for Instagram, Facebook, LinkedIn, and more.",
-		icon: <FiImage size={28} className="text-orange-500" />,
+		title: "Flyer",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
 	},
 	{
-		title: "Marketing Collateral",
-		description:
-			"From brochures to packaging, we design marketing materials that reflect your brand’s essence.",
-		icon: <FiLayout size={28} className="text-orange-500" />,
+		title: "ID Cards",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
 	},
 	{
-		title: "UI/UX Design",
-		description:
-			"Designing intuitive, modern user interfaces for websites and mobile apps with focus on experience.",
-		icon: <FiSmartphone size={28} className="text-orange-500" />,
+		title: "Invitation",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
 	},
 	{
-		title: "Creative Content & Video",
-		description:
-			"Engaging creatives like short videos, reels, and animations to communicate your brand story.",
-		icon: <FiVideo size={28} className="text-orange-500" />,
+		title: "Letterhead",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+	},
+	{
+		title: "Logo",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+	},
+	{
+		title: "Notepads",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
+	},
+	{
+		title: "Packaging",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+	},
+	{
+		title: "Stickers",
+		image:
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
 	},
 ];
 
-export default function ServicesSection() {
+export default function ServicesMain() {
 	return (
-		<section className="bg-[#0f0f0f] text-white py-24 px-6">
-			<div className="max-w-7xl mx-auto text-center mb-16">
-				<h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
-				<p className="text-gray-400 max-w-2xl mx-auto">
-					We offer a comprehensive suite of creative and digital solutions to
-					elevate your brand and business presence.
-				</p>
-			</div>
+		<section className="bg-black text-white py-16 pt-20 relative">
+			<div className="container mx-auto px-4">
+				<h3 className="text-sm uppercase text-orange-600 tracking-widest mb-2">
+					Print Solutions
+				</h3>
+				<div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+					<h2 className="text-4xl font-bold">Our Services</h2>
+					<Link href="/our-works">
+						<button className="bg-gray-800 text-sm px-5 py-2 rounded-full hover:bg-gray-700">
+							View All
+						</button>
+					</Link>
+				</div>
 
-			<div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-				{services.map((service, index) => (
-					<div
-						key={index}
-						className="bg-[#1a1a1a] rounded-xl p-6 shadow-lg hover:shadow-orange-500/20 transition-shadow">
-						<div className="mb-4">{service.icon}</div>
-						<h3 className="text-xl font-semibold text-white mb-2">
-							{service.title}
-						</h3>
-						<p className="text-gray-400 text-sm">{service.description}</p>
-					</div>
-				))}
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
+					{printServices.map((service, index) => (
+						<Link
+							key={index}
+							href={`/works?category=${encodeURIComponent(service.title)}`}
+							className="block">
+							<motion.div
+								initial={{ opacity: 0, y: 30 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6, delay: index * 0.1 }}
+								whileHover={{
+									scale: 1.02,
+									filter: "grayscale(90%)",
+									transition: { duration: 0.3 },
+								}}
+								viewport={{ once: true }}
+								className="bg-yellow-300 overflow-hidden relative rounded-xl shadow-lg group cursor-pointer min-h-[400px]">
+								<Image
+									src={service.image}
+									alt={service.title}
+									width={400}
+									height={400}
+									className="object-cover w-full h-[400px] transition-transform duration-300 group-hover:scale-105"
+								/>
+								<div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+									<h3 className="text-white text-2xl font-semibold text-center px-4">
+										{service.title}
+									</h3>
+								</div>
+							</motion.div>
+						</Link>
+					))}
+				</div>
 			</div>
 		</section>
 	);

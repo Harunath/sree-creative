@@ -51,7 +51,9 @@ const NavBar = () => {
 				scrolled ? "backdrop-blur-sm shadow-md " : "bg-transparent"
 			}`}>
 			<div className="max-w-7xl mx-auto px-4 lg:px-16 h-16 lg:h-24 flex items-center justify-between">
-				<h1 className="text-2xl lg:text-4xl font-bold tracking-wide">SREE</h1>
+				<h1 className="text-2xl lg:text-4xl font-bold tracking-wide">
+					Digi Ink
+				</h1>
 
 				{/* Desktop Nav */}
 				<div className="hidden lg:flex items-center gap-x-6 text-sm font-medium">

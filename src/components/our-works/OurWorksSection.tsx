@@ -1,79 +1,131 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
-const projects = [
+const works = [
 	{
-		title: "Brand Identity for Cafe Brew",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
-		category: "Branding",
+		title: "Elegant Brochure Design",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+		],
+		category: "Brochures",
 	},
 	{
-		title: "UI/UX Design for Finance App",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
-		category: "UI/UX",
+		title: "Modern Business Card",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+		],
+		category: "Business Cards",
 	},
 	{
-		title: "Social Media Reels – Fashion Brand",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
-		category: "Social Media",
+		title: "Creative Flyer Layout",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+		],
+		category: "Flyer",
 	},
 	{
-		title: "Website Design – Tech Agency",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
-		category: "Web Design",
+		title: "Professional ID Card",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+		],
+		category: "ID Cards",
 	},
 	{
-		title: "Packaging Design – Organic Foods",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
+		title: "Wedding Invitation",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
+		],
+		category: "Invitation",
+	},
+	{
+		title: "Letterhead Template",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+		],
+		category: "Letterhead",
+	},
+	{
+		title: "Logo Branding",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+		],
+		category: "Logo",
+	},
+	{
+		title: "Custom Notepads",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502352/branding_ckrf8i.jpg",
+		],
+		category: "Notepads",
+	},
+	{
+		title: "Product Packaging",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+		],
 		category: "Packaging",
 	},
 	{
-		title: "Event Promo Video",
-		image:
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748501295/home2_bg_ito8po.jpg",
-		category: "Video Editing",
+		title: "Sticker Sheets",
+		images: [
+			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+		],
+		category: "Stickers",
 	},
 ];
 
 export default function OurWorksSection() {
-	return (
-		<section className="bg-[#0f0f0f] text-white py-24 px-6">
-			<div className="max-w-7xl mx-auto text-center mb-16">
-				<h2 className="text-4xl font-bold mb-4">Our Works</h2>
-				<p className="text-gray-400 max-w-2xl mx-auto">
-					A glimpse into our recent creative projects - from branding and
-					digital designs to immersive visual content.
-				</p>
-			</div>
+	const searchParams = useSearchParams();
+	const category = searchParams.get("category");
 
-			<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-				{projects.map((work, index) => (
-					<motion.div
+	const filteredWorks = useMemo(() => {
+		if (!category) return works;
+		return works.filter((work) => work.category === category);
+	}, [category]);
+
+	return (
+		<div className="p-6 text-white bg-black min-h-screen">
+			<h1 className="text-4xl font-bold mb-4">Our Works</h1>
+
+			{category && (
+				<p className="text-lg mb-6">
+					Showing works for:{" "}
+					<strong className="text-orange-400">{category}</strong>
+				</p>
+			)}
+
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				{filteredWorks.map((work, index) => (
+					<div
 						key={index}
-						whileHover={{ scale: 1.03 }}
-						className="group bg-[#1a1a1a] rounded-xl overflow-hidden shadow-md hover:shadow-orange-500/20 transition">
-						<div className="relative h-60 w-full">
-							<Image
-								src={work.image}
-								alt={work.title}
-								fill
-								className="object-cover group-hover:opacity-80 transition"
-							/>
+						className="bg-white text-black rounded-xl overflow-hidden shadow-lg p-4">
+						<h3 className="font-bold text-lg mb-2">{work.title}</h3>
+						<p className="text-sm text-gray-600 mb-4">{work.category}</p>
+						<div className="grid grid-cols-2 gap-2">
+							{work.images.map((img, i) => (
+								<Image
+									key={i}
+									src={img}
+									alt={`${work.title} ${i + 1}`}
+									width={300}
+									height={200}
+									className="w-full h-40 object-cover rounded-md"
+								/>
+							))}
 						</div>
-						<div className="p-4">
-							<h3 className="text-lg font-semibold text-white">{work.title}</h3>
-							<p className="text-sm text-orange-400 mt-1">{work.category}</p>
-						</div>
-					</motion.div>
+					</div>
 				))}
+
+				{filteredWorks.length === 0 && (
+					<p className="text-gray-400">
+						No works found for the selected category.
+					</p>
+				)}
 			</div>
-		</section>
+		</div>
 	);
 }
