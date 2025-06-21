@@ -90,7 +90,13 @@ const works = [
 	{
 		title: "Logo Branding",
 		images: [
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499727/f5c025af-8e8c-4171-bbad-c7f15ba99c1d_ertxro.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499725/f49e9a93-dea6-4c2b-a631-dcaed9f2df5b_nyu4c5.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499721/e21b0301-3b03-4c63-b6fb-f50f482a4df5_xwbfwp.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499719/c185be99-7317-44b6-a1d9-b85b395e9ff0_zw49qi.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499717/993d9837-7114-4ef7-af0b-8c781a1c4116_x1ztpu.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499715/656cf1b0-a31a-46aa-9791-2d82c011a018_qaogeq.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499714/31c4de8b-98ac-4c9f-8787-d73210f2358d_yr49jh.jpg",
 		],
 		category: "Logo",
 	},
@@ -104,14 +110,15 @@ const works = [
 	{
 		title: "Product Packaging",
 		images: [
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748502439/ad-film_knktbv.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499531/74ff19dd-ab72-48cd-8e08-9911720f2e69_h01h3h.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499530/ea56ca6c-3a60-4599-8fc2-ce345bfc84d1_hzg1v1.jpg",
 		],
 		category: "Packaging",
 	},
 	{
 		title: "Sticker Sheets",
 		images: [
-			"https://res.cloudinary.com/degrggosz/image/upload/v1748502430/social-media-2-scaled_z42hoz.jpg",
+			"https://res.cloudinary.com/dmtrqpza7/image/upload/v1750499505/342237cf-5bc1-4195-9283-19621f3ca274_vvehxe.jpg",
 		],
 		category: "Stickers",
 	},
