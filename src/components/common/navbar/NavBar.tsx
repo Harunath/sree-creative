@@ -12,7 +12,7 @@ const links = [
 	{ name: "About Us", link: "/about" },
 	{ name: "Services", link: "/services" },
 	{ name: "Our Works", link: "/works" },
-	// { name: "Clients", link: "/clients" },
+	{ name: "Digital Marketing", link: "/digital-marketing" },
 	{ name: "Blog", link: "/blog" },
 	// { name: "Plan Yours", link: "/plan-your-projects" },
 	{ name: "Careers", link: "/careers" },
