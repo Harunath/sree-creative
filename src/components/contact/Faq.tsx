@@ -1,6 +1,8 @@
 "use client";
+
 import Image from "next/image";
 import { useState } from "react";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 const faqs = [
 	{
@@ -21,57 +23,94 @@ const faqs = [
 ];
 
 export default function Faq() {
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+	const toggle = (index: number) => {
+		setActiveIndex(activeIndex === index ? null : index);
+	};
 
 	return (
-		<section className="bg-zinc-900 text-white px-6 py-16">
-			<div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-				{/* Left Column: Image & CTA */}
+		<section className="bg-black text-white px-6 py-20">
+			<div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+				{/* LEFT SIDE */}
 				<div>
-					<div className=" overflow-hidden mb-6">
+					<div className="rounded-2xl overflow-hidden mb-6 border border-white/10">
 						<Image
-							src="https://res.cloudinary.com/dip2khkyo/image/upload/v1739210128/contact-us-img_xfcru4.webp" // Place your image in the public folder with this name
+							src="https://res.cloudinary.com/dip2khkyo/image/upload/v1739210128/contact-us-img_xfcru4.webp"
 							alt="Customer support"
 							width={600}
 							height={600}
 							className="w-full h-auto object-cover"
 						/>
 					</div>
-					<h3 className="text-2xl font-bold">Still Have Questions?</h3>
-					<p className="text-zinc-400 mt-2">
-						We&apos;re here to help. Whether it&apos;s printing, design, or delivery -
-						let&apos;s make your vision a reality.
+
+					<h3 className="text-2xl font-bold">
+						Still Have <span className="text-orange-500">Questions?</span>
+					</h3>
+
+					<p className="text-gray-400 mt-3">
+						Whether it&apos;s printing, design, or marketing — our team is ready
+						to guide you and deliver the best solutions.
 					</p>
-					<button className="mt-4 px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold">
+
+					<button className="mt-6 px-6 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-semibold transition shadow-md hover:shadow-orange-600/20">
 						Contact Support
 					</button>
 				</div>
 
-				{/* Right Column: FAQ */}
+				{/* RIGHT SIDE */}
 				<div>
-					<h2 className="text-4xl font-bold leading-tight mb-4">
-						Discover What Digi Ink Can Do
+					<span className="text-orange-500 text-sm uppercase tracking-wider font-semibold">
+						FAQs
+					</span>
+
+					<h2 className="text-3xl md:text-4xl font-bold mt-2 leading-tight">
+						Everything You Need to Know About{" "}
+						<span className="text-orange-500">Digi Ink</span>
 					</h2>
-					<p className="text-zinc-400 mb-6">
-						Your ideas deserve more than generic prints. Explore our most asked
-						questions to see how Digi Ink can help make your brand shine.
+
+					<p className="text-gray-400 mt-4 mb-8">
+						Get answers to common questions about our services, process, and how
+						we help businesses grow with premium printing and design solutions.
 					</p>
+
 					<div className="space-y-4">
-						{faqs.map((faq, i) => (
-							<div
-								key={i}
-								onClick={() => setActiveIndex(i)}
-								className={`p-5 rounded-xl cursor-pointer transition ${
-									activeIndex === i
-										? "bg-orange-600 text-white"
-										: "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
-								}`}>
-								<h4 className="font-semibold text-lg">{faq.question}</h4>
-								{activeIndex === i && (
-									<p className="text-sm mt-2 text-white">{faq.answer}</p>
-								)}
-							</div>
-						))}
+						{faqs.map((faq, i) => {
+							const isActive = activeIndex === i;
+
+							return (
+								<div
+									key={i}
+									className={`rounded-xl border transition duration-300 ${
+										isActive
+											? "border-orange-600 bg-white/5"
+											: "border-white/10 bg-white/5 hover:border-orange-600/40"
+									}`}>
+									{/* Question */}
+									<button
+										onClick={() => toggle(i)}
+										className="w-full flex items-center justify-between text-left px-5 py-4">
+										<h4 className="font-medium text-white text-base">
+											{faq.question}
+										</h4>
+
+										<span className="text-orange-500">
+											{isActive ? <FiMinus /> : <FiPlus />}
+										</span>
+									</button>
+
+									{/* Answer */}
+									<div
+										className={`px-5 overflow-hidden transition-all duration-300 ${
+											isActive ? "max-h-40 pb-4" : "max-h-0"
+										}`}>
+										<p className="text-gray-400 text-sm leading-relaxed">
+											{faq.answer}
+										</p>
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			</div>

@@ -4,9 +4,9 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export default function FloatingWhatsApp() {
 	const phoneNumber = "919704186069";
-	const message = "Hello! I am interested in Digi Ink services."; 
+	const message = "Hello! I am interested in Digi Ink services.";
 	const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-		message
+		message,
 	)}`;
 
 	return (

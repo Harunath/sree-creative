@@ -16,8 +16,44 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Digi Ink",
-	description: "Printing solutions for all your needs.",
+	metadataBase: new URL("https://digiink.ink"), // 🔥 change this
+
+	title: {
+		default: "Digi Ink | Real Estate Brochure Design & Printing Services",
+		template: "%s | Digi Ink",
+	},
+
+	description:
+		"Digi Ink offers premium brochure design, printing, and digital marketing services for real estate developers, builders, and businesses.",
+
+	keywords: [
+		"brochure design",
+		"printing services",
+		"real estate brochure design",
+		"digital marketing services",
+		"branding agency India",
+	],
+
+	openGraph: {
+		title: "Digi Ink | Brochure Design & Digital Marketing",
+		description:
+			"High-quality brochure design and marketing services to grow your business.",
+		url: "https://digiink.ink",
+		siteName: "Digi Ink",
+		// images: [
+		// 	{
+		// 		url: "https://res.cloudinary.com/dgulr1hgd/image/upload/q_auto/f_auto/v1774979617/real_estate_brochure_bg.jpg",
+		// 		width: 1200,
+		// 		height: 630,
+		// 		alt: "Digi Ink Brochure Design",
+		// 	},
+		// ],
+		type: "website",
+	},
+
+	icons: {
+		icon: "/favicon.ico",
+	},
 };
 
 export default function RootLayout({

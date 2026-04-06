@@ -1,13 +1,14 @@
-import ServicesHome from '@/components/service/ServicesHome'
-import React from 'react'
+import ServicesBanner from "@/components/service/ServicesBanner";
+import ServicesMain from "@/components/service/ServicesMain";
+import React from "react";
 
 function page() {
-  return (
-	<>
-	<ServicesHome/>
-	
-	</>
-  )
+	return (
+		<>
+			<ServicesBanner />
+			<ServicesMain />
+		</>
+	);
 }
 
-export default page
+export default page;

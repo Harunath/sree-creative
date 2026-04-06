@@ -1,11 +1,17 @@
 import React from "react";
-import AboutHome from "@/components/about/AboutHome";
+import VisionMission from "@/components/about/VisionMission";
+import OurStory from "@/components/about/OurStory";
+import WhyUs from "@/components/about/WhyUs";
+import AboutBanner from "@/components/about/AboutBanner";
 function page() {
-	return <>
-
-
-	<AboutHome />
-</>;
+	return (
+		<>
+			<AboutBanner />
+			<WhyUs />
+			<OurStory />
+			<VisionMission />
+		</>
+	);
 }
 
 export default page;

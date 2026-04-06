@@ -6,6 +6,7 @@ import OurServices from "@/components/home/OurServices";
 import ClientsSection from "@/components/home/ClientSection";
 import TestimonialsSection from "@/components/home/TestimonialSection";
 import OurWorks from "@/components/home/OurWorks";
+import OurWorksSection from "@/components/our-works/OurWorksSection";
 
 export default function Home() {
 	return (
@@ -20,6 +21,7 @@ export default function Home() {
 				initialX={200}
 			/>
 			<Numbers />
+			<OurWorksSection />
 			<ClientsSection />
 			<TestimonialsSection />
 		</div>

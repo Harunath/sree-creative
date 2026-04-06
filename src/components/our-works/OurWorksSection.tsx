@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
-import clsx from "clsx";
 import { motion, AnimatePresence } from "motion/react";
-import { FiX } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
 
 const works = [
 	{
@@ -128,250 +127,153 @@ const works = [
 
 // const baseCategories = ["All", ...new Set(works.map((w) => w.category))];
 
-type Work = (typeof works)[number];
-
 export default function OurWorksSection() {
-	const [selectedCategory] = useState("All");
-
-	// const categoryCounts = useMemo(() => {
-	// 	const map = new Map<string, number>();
-	// 	works.forEach((w) => {
-	// 		map.set(w.category, (map.get(w.category) ?? 0) + 1);
-	// 	});
-	// 	return map;
-	// }, []);
-
-	const filteredWorks = useMemo<Work[]>(() => {
-		if (selectedCategory === "All") return works;
-		return works.filter((w) => w.category === selectedCategory);
-	}, [selectedCategory]);
-
-	const getColumnClass = useCallback(() => {
-		const count = filteredWorks.length;
-		if (count <= 1) return "columns-1";
-		if (count === 2) return "columns-1 sm:columns-2";
-		if (count === 3) return "columns-1 sm:columns-2 md:columns-3";
-		return "columns-1 sm:columns-2 md:columns-3 lg:columns-4";
-	}, [filteredWorks.length]);
-
 	const [lightbox, setLightbox] = useState<{
 		workIndex: number;
 		imageIndex: number;
 	} | null>(null);
 
-	const openLightbox = (workIndex: number, imageIndex: number) =>
-		setLightbox({ workIndex, imageIndex });
+	const allImages = useMemo(() => {
+		return works.flatMap((work, wIdx) =>
+			work.images.map((img, i) => ({
+				src: img,
+				workIndex: wIdx,
+				imageIndex: i,
+				title: work.title,
+			})),
+		);
+	}, []);
 
-	const closeLightbox = () => setLightbox(null);
-
-	const goto = (dir: "prev" | "next") => {
-		if (!lightbox) return;
-		const w = filteredWorks[lightbox.workIndex];
-		const total = w.images.length;
-		const nextImageIndex =
-			dir === "next"
-				? (lightbox.imageIndex + 1) % total
-				: (lightbox.imageIndex - 1 + total) % total;
-		setLightbox({ workIndex: lightbox.workIndex, imageIndex: nextImageIndex });
+	const open = (index: number) => {
+		const img = allImages[index];
+		setLightbox({ workIndex: img.workIndex, imageIndex: img.imageIndex });
 	};
 
-	// keyboard navigation
+	const close = () => setLightbox(null);
+
+	const currentIndex = useMemo(() => {
+		if (!lightbox) return -1;
+		return allImages.findIndex(
+			(img) =>
+				img.workIndex === lightbox.workIndex &&
+				img.imageIndex === lightbox.imageIndex,
+		);
+	}, [lightbox, allImages]);
+
+	const goto = (dir: "prev" | "next") => {
+		if (currentIndex === -1) return;
+
+		const newIndex =
+			dir === "next"
+				? (currentIndex + 1) % allImages.length
+				: (currentIndex - 1 + allImages.length) % allImages.length;
+
+		const next = allImages[newIndex];
+
+		setLightbox({
+			workIndex: next.workIndex,
+			imageIndex: next.imageIndex,
+		});
+	};
+
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
 			if (!lightbox) return;
-			if (e.key === "Escape") closeLightbox();
+			if (e.key === "Escape") close();
 			if (e.key === "ArrowRight") goto("next");
 			if (e.key === "ArrowLeft") goto("prev");
 		};
 		window.addEventListener("keydown", handler);
 		return () => window.removeEventListener("keydown", handler);
-	}, [lightbox]);
+	}, [lightbox, currentIndex]);
 
 	return (
-		<div className="relative min-h-screen bg-neutral-950 text-white">
-			{/* Ambient grid & glow */}
-			<div
-				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-[radial-gradient(1200px_800px_at_50%_-10%,rgba(255,115,0,0.1),transparent_70%)]"
-			/>
-			<div
-				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:22px_22px] opacity-10"
-			/>
+		<section className="bg-black text-white py-24 px-4">
+			<div className="max-w-7xl mx-auto">
+				{/* HEADER */}
+				<div className="text-center mb-16">
+					<h2 className="text-4xl md:text-5xl font-bold">
+						Our <span className="text-orange-500">Works</span>
+					</h2>
+					<p className="text-gray-400 mt-4">
+						Explore our creative work across branding, design, and marketing.
+					</p>
+				</div>
 
-			<div className="relative mx-auto w-full max-w-7xl px-4 pb-24 pt-20">
-				{/* Title */}
-				<motion.h1
-					initial={{ y: 20, opacity: 0 }}
-					animate={{ y: 0, opacity: 1 }}
-					transition={{ duration: 0.5, ease: "easeOut" }}
-					className="text-center text-4xl font-bold tracking-tight md:text-5xl">
-					Our Works
-				</motion.h1>
-				<p className="mx-auto mt-3 max-w-2xl text-center text-sm text-zinc-300">
-					Explore our brochures, logos, cards, and more — curated to inspire and
-					convert. Click any image to view it large.
-				</p>
+				{/* BIG MASONRY GRID */}
+				<div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+					{allImages.map((img, index) => (
+						<motion.div
+							key={index}
+							whileHover={{ scale: 1.02 }}
+							className="break-inside-avoid cursor-pointer group"
+							onClick={() => open(index)}>
+							<div className="relative overflow-hidden rounded-2xl border border-white/10">
+								<Image
+									src={img.src}
+									alt=""
+									width={800}
+									height={600}
+									className="w-full h-auto object-cover"
+								/>
 
-				{/* Filter bar (sticky on scroll) */}
-
-				{/* Masonry Grid */}
-				<div className={clsx("mx-auto mt-10 space-y-6", getColumnClass())}>
-					{filteredWorks.map((work, wIdx) => (
-						<motion.article
-							key={wIdx}
-							initial={{ y: 24, opacity: 0 }}
-							whileInView={{ y: 0, opacity: 1 }}
-							viewport={{ once: true, amount: 0.25 }}
-							transition={{ duration: 0.4, ease: "easeOut" }}
-							className="break-inside-avoid rounded-2xl border border-white/10 bg-neutral-900/60 shadow-xl ring-1 ring-white/5 backdrop-blur">
-							{/* Card header */}
-							<div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
-								<div className="min-w-0">
-									<h3 className="truncate text-lg font-semibold text-white">
-										{work.title}
-									</h3>
-									<p className="truncate text-xs text-zinc-400">
-										{work.category}
-									</p>
+								{/* Hover Overlay */}
+								<div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+									<span className="bg-orange-500 px-4 py-2 rounded-full text-sm">
+										View
+									</span>
 								</div>
-								<span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-300">
-									{work.images.length} shots
-								</span>
 							</div>
-
-							{/* Image grid (per card) */}
-							<div className="grid grid-cols-2 gap-2 p-3 sm:p-4">
-								{work.images.map((src, i) => (
-									<button
-										key={i}
-										onClick={() => openLightbox(wIdx, i)}
-										className="group relative overflow-hidden rounded-xl border border-white/10 bg-neutral-800/40"
-										aria-label={`${work.title} ${i + 1}`}>
-										{/* Soft overlay + hover lift */}
-										<div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-										<motion.div
-											whileHover={{ scale: 1.02 }}
-											whileTap={{ scale: 0.99 }}
-											className="relative">
-											<Image
-												src={src}
-												alt={`${work.title} ${i + 1}`}
-												width={600}
-												height={400}
-												loading="lazy"
-												className="h-auto w-full object-cover transition-opacity duration-300"
-											/>
-										</motion.div>
-
-										{/* Badge on hover */}
-										<span className="pointer-events-none absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-1 text-[10px] text-white opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
-											View
-										</span>
-									</button>
-								))}
-							</div>
-						</motion.article>
+						</motion.div>
 					))}
-
-					{filteredWorks.length === 0 && (
-						<p className="col-span-full text-center text-zinc-400">
-							No works found for the selected category.
-						</p>
-					)}
 				</div>
 			</div>
 
-			{/* LIGHTBOX MODAL */}
+			{/* MODAL */}
 			<AnimatePresence>
 				{lightbox && (
 					<motion.div
-						key="lb"
+						className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						className="fixed inset-0 z-[80]  flex items-center justify-center bg-black/80 p-4"
-						onClick={closeLightbox}>
-						<motion.div
-							initial={{ y: 24, scale: 0.98, opacity: 0 }}
-							animate={{ y: 0, scale: 1, opacity: 1 }}
-							exit={{ y: 24, scale: 0.98, opacity: 0 }}
-							transition={{ type: "spring", stiffness: 260, damping: 24 }}
-							className="relative w-full max-w-5xl"
+						onClick={close}>
+						<div
+							className="relative w-full max-w-6xl px-4"
 							onClick={(e) => e.stopPropagation()}>
-							{/* Top bar */}
-							<div className="mb-3 flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white">
-								<div className="truncate">
-									{filteredWorks[lightbox.workIndex].title} ·{" "}
-									<span className="text-zinc-300">
-										{filteredWorks[lightbox.workIndex].category}
-									</span>
-								</div>
-								<button
-									onClick={closeLightbox}
-									className="flex items-center gap-2 mt-2 rounded-lg border border-white/10 bg-white/10 px-3 py-1.5 text-xs text-white transition hover:bg-orange-500/60">
-									<FiX className="text-sm" />
-									<span className="hidden sm:inline">Close</span>
-								</button>
-							</div>
+							{/* Close */}
+							<button
+								onClick={close}
+								className="absolute -top-12 right-4 text-white">
+								<FiX size={30} />
+							</button>
 
 							{/* Image */}
-							<div className="relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
-								<Image
-									src={
-										filteredWorks[lightbox.workIndex].images[
-											lightbox.imageIndex
-										]
-									}
-									alt="Preview"
-									width={1600}
-									height={1000}
-									priority
-									className="h-auto w-full object-contain"
-								/>
-								{/* Controls */}
-								<div className="pointer-events-none absolute inset-0 flex items-center justify-between p-3">
-									<button
-										onClick={() => goto("prev")}
-										className="pointer-events-auto rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20">
-										← Prev
-									</button>
-									<button
-										onClick={() => goto("next")}
-										className="pointer-events-auto rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20">
-										Next →
-									</button>
-								</div>
-							</div>
+							<Image
+								src={allImages[currentIndex].src}
+								alt=""
+								width={1600}
+								height={1000}
+								className="w-full max-h-[85vh] object-contain rounded-xl"
+							/>
 
-							{/* Dots */}
-							<div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-								{filteredWorks[lightbox.workIndex].images.map((_, i) => {
-									const active = i === lightbox.imageIndex;
-									return (
-										<button
-											key={i}
-											onClick={() =>
-												setLightbox({
-													workIndex: lightbox.workIndex,
-													imageIndex: i,
-												})
-											}
-											className={clsx(
-												"h-2 w-2 rounded-full",
-												active
-													? "bg-orange-500"
-													: "bg-white/30 hover:bg-white/60"
-											)}
-											aria-label={`Go to image ${i + 1}`}
-										/>
-									);
-								})}
-							</div>
-						</motion.div>
+							{/* LEFT ARROW */}
+							<button
+								onClick={() => goto("prev")}
+								className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-3 rounded-full hover:bg-orange-500 transition">
+								<FiChevronLeft size={24} />
+							</button>
+
+							{/* RIGHT ARROW */}
+							<button
+								onClick={() => goto("next")}
+								className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-3 rounded-full hover:bg-orange-500 transition">
+								<FiChevronRight size={24} />
+							</button>
+						</div>
 					</motion.div>
 				)}
 			</AnimatePresence>
-		</div>
+		</section>
 	);
 }
