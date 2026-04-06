@@ -42,10 +42,10 @@ const NavBar = () => {
 			className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
 				scrolled
 					? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg"
-					: "bg-transparent"
+					: "bg-black lg:bg-transparent"
 			}`}>
 			<div className="max-w-7xl mx-auto px-6 lg:px-16 h-16 lg:h-20 flex items-center justify-between">
-				{/* 🔶 LOGO (Upgraded) */}
+				{/* 🔶 LOGO */}
 				<Link href="/" className="flex items-center gap-2 group">
 					<div className="w-9 h-9 rounded-lg bg-orange-600 flex items-center justify-center font-bold text-white shadow-md">
 						D
@@ -95,7 +95,7 @@ const NavBar = () => {
 						</div>
 					))}
 
-					{/* 🔥 CTA BUTTON */}
+					{/* CTA */}
 					<Link
 						href="/contact-us"
 						className="ml-4 px-5 py-2 rounded-lg bg-orange-600 text-white font-semibold hover:bg-orange-500 transition shadow-md">
