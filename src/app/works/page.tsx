@@ -1,10 +1,14 @@
-import React, { Suspense } from "react";
-import OurWorksHome from "@/components/our-works/OurWorksHome";
+import OurWorksSection from "@/components/our-works/OurWorksSection";
+import React from "react";
+import WorksBanner from "@/components/our-works/WorksBanner";
 
-export default function Page() {
+const page = () => {
 	return (
-		<Suspense fallback={<div className="text-white p-6">Loading works...</div>}>
-			<OurWorksHome />
-		</Suspense>
+		<>
+			<WorksBanner />
+			<OurWorksSection />
+		</>
 	);
-}
+};
+
+export default page;

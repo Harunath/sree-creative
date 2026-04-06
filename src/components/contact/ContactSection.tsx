@@ -14,8 +14,8 @@ export default function ContactSection() {
 							Let&apos;s Start a Conversation
 						</h2>
 						<p className="text-gray-400">
-							Have questions or inquiries? We&apos;re here to help. Reach out to us
-							anytime and we&apos;ll respond promptly.
+							Have questions or inquiries? We&apos;re here to help. Reach out to
+							us anytime and we&apos;ll respond promptly.
 						</p>
 					</div>
 
@@ -51,20 +51,48 @@ export default function ContactSection() {
 				</div>
 
 				{/* Right Form */}
-				<div className="bg-[#1a1a1a]  p-4 md:p-10 ">
+				<div className="bg-[#1a1a1a] p-4 md:p-10">
 					<form className="space-y-6">
+						{/* Name + Email */}
 						<div className="grid md:grid-cols-2 gap-4">
-							<FormField label="Name" type="text" required />
-							<FormField label="Email" type="email" required />
+							<FormField label="Full Name" required />
+							<FormField label="Email Address" type="email" required />
 						</div>
-						<div>
-							<FormField label="Message" textarea />
+
+						{/* Phone + Service */}
+						<div className="grid md:grid-cols-2 gap-4">
+							<FormField label="Phone Number" type="tel" />
+
+							<div>
+								<label className="block text-sm font-medium mb-1">
+									Service Required
+								</label>
+								<select className="w-full px-4 py-3 rounded-lg border border-gray-700 bg-[#0f0f0f] text-gray-300 focus:ring-2 focus:ring-orange-500 outline-none transition">
+									<option>Select a service</option>
+									<option>Brochure Design</option>
+									<option>Digital Marketing</option>
+									<option>Branding</option>
+									<option>Printing</option>
+									<option>Other</option>
+								</select>
+							</div>
 						</div>
+
+						{/* Message */}
+						<FormField label="Project Details" textarea />
+
+						{/* CTA */}
 						<button
 							type="submit"
-							className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 w-full md:w-auto">
-							<FiSend className="text-lg" /> Send Message
+							className="w-full md:w-auto flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-orange-500/20">
+							<FiSend className="text-lg" />
+							Get Free Consultation
 						</button>
+
+						{/* Trust Note */}
+						<p className="text-xs text-gray-500">
+							We respect your privacy. Your information will not be shared.
+						</p>
 					</form>
 				</div>
 			</div>
